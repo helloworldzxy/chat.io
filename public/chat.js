@@ -27,6 +27,8 @@ window.onload = function(){
         li.className = 'message';
         li.innerHTML = '<b>' + form + ' </b>: ' + text;
         document.getElementById('messages').appendChild(li);
+
+        return li;
     }
 
     //获取输入框信息，提交时发送（触发text事件把消息内容传给服务器）
@@ -34,9 +36,14 @@ window.onload = function(){
     document.getElementById('form').onsubmit = function(){
 
         //因为是自己提交消息，只需直接显示在DOM中，不需要获取服务器的返回消息。
-        addMessage('me', input.value);
+        //获取li元素，以便给它添加确认发送成功的小图标
+        var li = addMessage('me', input.value);
 
-        socket.emit('text', input.value);
+        //回调函数用于接收服务器发来的消息收到的确认
+        socket.emit('text', input.value, function(date){
+            li.className = 'confirmed';
+            li.title = date;
+        });
 
         //重置输入框
         input.value = '';

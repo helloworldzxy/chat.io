@@ -1,3 +1,11 @@
 #chat{
     display: none;
 }
+
+.confirmed {
+    background: url(http://cdn.dustball.com/accept.png) no-repeat right;
+    display: inline;
+    height: 16px;
+    padding-right: 50px;
+
+}

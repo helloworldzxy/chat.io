@@ -43,8 +43,11 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('announcement', name + ' joined the chat.');
     });
 
-    socket.on('text', function(msg){
+    socket.on('text', function(msg, fn){
         socket.broadcast.emit('text', socket.nickname, msg);
+
+        //确认消息已接收
+        fn(Date.now());
     });
 });
 
